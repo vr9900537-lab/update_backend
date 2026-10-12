@@ -1,0 +1,12 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      FIREBASE_CREDENTIALS_PATH: /run/secrets/firebase-service-account.json
+    volumes:
+      - "${FIREBASE_SERVICE_ACCOUNT_FILE:?Set FIREBASE_SERVICE_ACCOUNT_FILE to a rotated key file}:/run/secrets/firebase-service-account.json:ro"
+    restart: unless-stopped
